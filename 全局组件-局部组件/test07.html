@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0px;padding: 0px}
+
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <h1>商家信息</h1>
+    <h2>商家名称：{{name}}</h2>
+    <h2>商家地址：{{addr}}</h2>
+    <h2>商家联系：{{phone}}</h2>
+
+</div>
+
+<script type="text/javascript">
+   var MyVue = Vue.extend({
+       data:function(){
+           return{
+               name:"美利坚和众国"
+               ,addr:"北美洲南部"
+               ,phone:"15509364256"
+
+            }
+       }
+   })
+    var app = new MyVue({
+        el:"#app"
+    })
+</script>
+</body>
+
+</html>

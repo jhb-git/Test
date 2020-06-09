@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            /*height: 2000px;*/
+        }
+
+        #app {
+            position: relative;
+            left: 0px;
+            top: 50px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /*====================================================*/
+
+        /*=======================头部样式=============================*/
+        #myheader {
+            width: 100%;
+            height: 50px;
+            background-color: grey;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+        }
+
+        #myheader > button:nth-of-type(1) {
+            height: 100%;
+            padding: 5px 15px 5px 15px;
+            font-size: 20px;
+            float: left;
+
+        }
+
+        #myheader > button:nth-of-type(2) {
+            height: 100%;
+            padding: 5px 15px 5px 15px;
+            font-size: 20px;
+            float: right;
+
+        }
+
+        /*=============列表样式=======================================*/
+        #mylist {
+            width: 100%;
+        }
+
+        /*每一组索引的样式*/
+        .indexChar {
+            height: 50px;
+            line-height: 50px;
+            width: 100%;
+            background-color: #cccccc;
+            font-size: 20px;
+            text-indent: 10px;
+        }
+
+        /*每一个联系人的样式*/
+        .indexChar + ul > li {
+            line-height: 80px;
+            height: 80px;
+            width: 100%;
+            background-color: white;
+            font-size: 20px;
+            border: 1px solid grey;
+        }
+
+        .divHead {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 5px solid grey;
+            float: left;
+            margin: 9px 10px 5px 10px;
+
+        }
+
+        /*男生头像*/
+        .male {
+            background-image: url("./img/male.jpg");
+            background-size: contain;
+        }
+
+        .female {
+            background-image: url("./img/female.jpg");
+            background-size: contain;
+        }
+
+        .allChars {
+            width: 40px;
+            background-color: red;
+            position: fixed;
+            right: 5px;
+            top: 0px;
+            font-size: 24px;
+        }
+
+        /*========================消息框的样式=================================================*/
+        #mymsgbox {
+            width: 100%;
+            height: 2000px;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 20;
+        }
+
+        .content {
+            width: 80%;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            margin: 80px auto;
+        }
+
+        .content > div:nth-of-type(1) {
+            height: 15%;
+            line-height: 62px;
+            width: 100%;
+            border: 1px solid gray;
+            text-align: center;
+            font-size: 26px;
+        }
+
+        .content > div:nth-of-type(2) {
+            height: 68%;
+            width: 100%;
+            border: 1px solid gray;
+            text-align: center;
+            font-size: 20px;
+
+        }
+
+        .content > div:nth-of-type(3) {
+            height: 15%;
+            width: 100%;
+            border: 1px solid gray;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .content > div button {
+            font-size: 20px;
+            padding: 5px 15px 5px 15px;
+        }
+
+        .msghead {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 5px solid gray;
+            margin: 10px auto;
+            animation: rotHead 5s linear infinite;
+
+        }
+
+        @keyframes rotHead {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <myheader :data-vue="dataVue"></myheader>
+    <mylist :persons="persons"></mylist>
+    <mymsgbox></mymsgbox>
+</div>
+<template id="myheader-tem">
+    <div id="myheader">
+        <button>返回</button>
+        {{dataVue.titleName}}
+        <button>主页</button>
+    </div>
+</template>
+<template id="mylist-tem">
+    <div id="mylist">
+        <div>
+            <ul>
+                <li v-for="item in persons">
+                    <div class="indexChar">
+                        {{item.index}}
+                    </div>
+                    <ul>
+                        <li @click="nameClick(it)" v-for="it in item.group1">
+                            <div :class="it.sex =='male'?'divHead male':'divHead female'"></div>
+                            <div>{{it.name}}</div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="allChars" ref="allChars">
+            <ul>
+                <li v-for="item in allIndex" @click="clickIndex(item)">{{item}}</li>
+                无敌且牛逼
+            </ul>
+        </div>
+    </div>
+</template>
+<template id="mymsgbox-tem">
+    <div id="mymsgbox" ref="mymsgbox" style="display: none;">
+        <div class="content">
+            <div>通话</div>
+            <div>
+                <div :class="sex='male'?'msghead male': msghead female"></div>
+                <div>
+                    姓名：{{name}}　<br/>
+                    号码：{{phone}}
+                </div>
+            </div>
+            <div>
+                <button>呼叫</button>
+                <button>取消</button>
+            </div>
+        </div>
+    </div>
+</template>
+</body>
+<script>
+    var dataOut = {
+        titleName: "通讯录"
+    }
+    var persons = [{
+        index: "A", group1: [
+            {name: "A张三1", phone: "13915951595", sex: "male"},
+            {name: "A张三2", phone: "13915951595", sex: "famale"},
+            {name: "A张三3", phone: "13915951595", sex: "male"}
+        ]
+    },
+        {
+            index: "B", group1: [
+                {name: "B张三1", phone: "18915951595", sex: "male"},
+                {name: "B张三2", phone: "18915951595", sex: "female"},
+                {name: "B张三3", phone: "18915951595", sex: "famale"}
+            ]
+        },
+
+        {
+            index: "C", group1: [
+                {name: "C张三1", phone: "17915951595", sex: "female"},
+                {name: "C张三2", phone: "17915951595", sex: "male"},
+                {name: "C张三3", phone: "17915951595", sex: "female"}
+            ]
+        },
+        {
+            index: "D", group1: [
+                {name: "D张三1", phone: "17915951595", sex: "female"},
+                {name: "D张三2", phone: "17915951595", sex: "female"},
+                {name: "D张三3", phone: "17915951595", sex: "female"}
+            ]
+        }
+
+    ]
+    var emptyvue = new Vue();
+    var app = new Vue({
+        el: "#app",
+        data: {
+            dataVue: dataOut,
+            persons: persons
+        },
+
+        components: {
+            myheader: {
+                template: "#myheader-tem",
+                props: ["dataVue"]
+            },
+            mylist: {
+                template: "#mylist-tem",
+                props: {
+                    persons: {
+                        type: Array,
+                        default: []
+                    }
+                },
+                computed: {
+                    allIndex: function () {
+                        var list = [];
+                        for (var i = 0; i < this.persons.length; i++) {
+                            list.push(this.persons[i].index);
+                        }
+                        return list;
+                    }
+                },
+                methods: {
+                    clickIndex: function (item) {
+                        var divs = document.getElementsByClassName("indexChar");
+                        for (var i = 0; i < divs.length; i++) {
+                            if (divs[i].innerText == item) {
+                                var topValue = divs[i].offsetTop;
+                                document.body.scrollTop = topValue;
+                                //正对浏览器的两种形式
+                                if (document.body.scrollTop == 0) {
+                                    document.documentElement.scrollTop = topValue;
+                                }
+                                break;
+                            }
+                        }
+                    },
+                    nameClick: function (it) {
+                        emptyvue.$emit("showMsg", it);
+                    }
+                },
+                mounted: function () {
+                    var winHeight = window.innerHeight;
+                    var divHeight = this.$refs.allChars.offsetHeight;
+                    var half = (winHeight - 50 - divHeight) / 2;
+                    this.$refs.allChars.style.marginTop = (half + 50) + 'px';
+                }
+            },
+            mymsgbox: {
+                template: "#mymsgbox-tem",
+                data: function () {
+                    return {
+                        name: "姓名",
+                        phone: "号码",
+                        sex: "male"
+                    }
+                },
+                //挂载函数
+                mounted: function () {
+                    emptyvue.$on("showMsg", function (it) {
+                        this.name = it.name;
+                        this.phone = it.phone;
+                        this.sex = it.sex;
+                        this.$refs.mymsgbox.style.display = "block";
+                    }.bind(this));
+                }
+            }
+        }
+    })
+</script>
+</html>

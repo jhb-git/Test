@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-if="isShow">客户评论</div>
+        <h2 v-for="item in pinglunS">{{item}}</h2>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            isShow : true,
+            pinglunS : ["正好吃","asdad","Adasdasd"]
+        }
+    })
+</script>
+</html>

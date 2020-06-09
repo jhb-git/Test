@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0px;padding: 0px}
+    </style>
+</head>
+<body>
+<div id="app">
+    商品数量：{{productCount}}
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            productCount:0
+        },
+        //创建生命周期
+        created:function () {
+            console.log("100 组件创建成功！")
+        },
+        //挂载
+        mounted:function () {
+            console.log("200 组件挂载成功！")
+        },
+        //修改
+        updated:function () {
+            console.log("300 组件有数据被修改了！")
+        },
+        //监控
+        watch:{
+            productCount:function (newValue,oldValue) {
+                consol3e.log("新的数值="+newValue+"旧的数值="+oldValue)
+            }
+        }
+    })
+</script>
+</body>
+</html>

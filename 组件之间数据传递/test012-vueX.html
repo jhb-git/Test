@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex "></script>
+    <style>
+        #myadd {
+            whith: 50px;
+            height: 50px;
+            background-color: greenyellow;
+            color: white;
+            font-size: 30px;
+            border-radius: 50%;
+            border: solid 1px greenyellow;
+        }
+
+        #mysub {
+            whith: 50px;
+            height: 50px;
+            background-color: greenyellow;
+            color: white;
+            font-size: 30px;
+            border-radius: 100%;
+            border: solid 1px greenyellow;
+        }
+
+        span {
+            whith: 50px;
+            height: 50px;
+            font-size: 30px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <myadd></myadd>
+    <product></product>
+    <mysub></mysub>
+</div>
+
+<template id="myAdd-tem">
+    <button id="myadd" @click="myAddClick">+</button>
+</template>
+
+<template id="product-tem">
+    <span>{{productCount}}</span>
+</template>
+
+<template id="mysub-tem">
+    <button id="mysub" @click="mySubClick">-</button>
+</template>
+
+<script type="text/javascript">
+    var mystate = new Vuex.Store({
+        state: {
+            count: 0
+        },
+        mutations: {
+            add: function (ev) {
+                this.state.count += 1;
+            },
+            sub: function (ev) {
+                if (this.state.count == 0) {
+                    return;
+                }
+                this.state.count -= 1;
+            }
+
+        }
+    })
+
+    var app = new Vue({
+        el: "#app",
+        components: {
+            myadd: {
+                template: "#myAdd-tem",
+                methods: {
+                    myAddClick: function (ev) {
+                        mystate.commit("add");
+                    }
+                }
+            },
+            product: {
+                template: "#product-tem",
+                computed: {
+                    productCount: function () {
+                        return mystate.state.count;
+                    }
+                },
+            },
+            mysub: {
+                template: "#mysub-tem",
+                methods: {
+                    mySubClick: function (ev) {
+                        mystate.commit("sub");
+                    }
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+
+</html>

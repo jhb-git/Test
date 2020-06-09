@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #myadd {
+            whith: 50px;
+            height: 50px;
+            background-color: greenyellow;
+            color: white;
+            font-size: 30px;
+            border-radius: 50%;
+            border: solid 1px greenyellow;
+        }
+
+        #mysub {
+            whith: 50px;
+            height: 50px;
+            background-color: greenyellow;
+            color: white;
+            font-size: 30px;
+            border-radius: 100%;
+            border: solid 1px greenyellow;
+        }
+
+        span {
+            whith: 50px;
+            height: 50px;
+            font-size: 30px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <myadd></myadd>
+    <product></product>
+    <mysub></mysub>
+</div>
+
+<template id="myAdd-tem">
+    <button id="myadd" @click="myAddClick">+</button>
+</template>
+
+<template id="product-tem">
+    <span>{{productCount}}</span>
+</template>
+
+<template id="mysub-tem">
+    <button id="mysub" @click="mySubClick">-</button>
+</template>
+
+<script type="text/javascript">
+    var emptyvue = new Vue();
+    var app = new Vue({
+        el: "#app",
+        components: {
+            myadd: {
+                template: "#myAdd-tem",
+                methods: {
+                    myAddClick: function (ev) {
+                        emptyvue.$emit("changCount", 1);
+                    }
+                }
+            },
+            product: {
+                template: "#product-tem",
+                data: function () {
+                    return {
+                        productCount: 0
+                    }
+                },
+                mounted: function () {
+                    emptyvue.$on("changCount", function (cnt) {
+                        if (this.productCount == 0 && cnt < 0) {
+                            return;
+                        }
+                        this.productCount += cnt;
+                    }.bind(this))
+                }
+            },
+            mysub: {
+                template: "#mysub-tem",
+                methods: {
+                    mySubClick: function (ev) {
+                        emptyvue.$emit("changCount", -1);
+                    }
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+
+</html>

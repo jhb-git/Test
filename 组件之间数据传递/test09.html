@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #mycom{
+            border: dashed 1px red;
+        }
+        #app{
+            border: dashed 1px blue;
+        }
+        #mycom button{
+            font-size: 20px;
+            margin: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>父组件</h1>
+    <mycom @btn-click="btnClickParent"></mycom>
+</div>
+<template id="mycom-tem">
+    <div id="mycom">
+        <button @click="btnClick">张三</button>
+        <button @click="btnClick">李四</button>
+    </div>
+</template>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        components:{
+            mycom:{
+                template:"#mycom-tem",
+                methods:{
+                    btnClick:function (ev) {
+                        this.$emit("btn-click",ev.target.innerText);
+                    }
+                }
+            }
+        },
+        methods: {
+            btnClickParent:function (txt) {
+             //  var h2 = document.getElementsByTagName("h2")[0];
+                var h2 = this.$refs.h20; //定义引用
+               h2.innerText=txt+"被点击了。"
+            }
+        }
+    })
+</script>
+
+</html>

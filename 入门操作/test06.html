@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0px;padding: 0px}
+
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <myheader></myheader>
+</div>
+<script type="text/x-template" id="my-header-tem">
+    <div><h1>商品详情</h1>
+        <h2>商品名称{{name}}</h2>
+        <h2>商品型号{{model}}</h2>
+        <h2>价格{{price}}</h2>"
+    </div>
+</script>
+<template id="my-header-tem2">
+    <div><h1>商品详情</h1>
+        <h2>商品名称{{name}}</h2>
+        <h2>商品型号{{model}}</h2>
+        <h2>价格{{price}}</h2>"
+    </div>
+</template>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        components:{
+            "myheader": {
+                template: "#my-header-tem2",
+                data: function () {
+                    return{
+                        name:"航空母舰",
+                        model:"福特300",
+                        price: 12.00
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

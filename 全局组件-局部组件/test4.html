@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{margin: 0px;padding: 0px}
+        button{
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <myHeader></myHeader>
+</div>
+
+<script type="text/javascript">
+    Vue.component("myheader",{
+        template:"<h1>商品详情</h1>"
+    })
+var app = new Vue({
+    el:"#app"
+})
+</script>
+</body>
+
+</html>

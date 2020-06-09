@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #myhead {
+            border: 3px dashed red;
+        }
+
+        #mylist {
+            border: 3px dashed blue;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <myhead></myhead>
+    <mylist></mylist>
+</div>
+
+<template id="myhead-tem">
+    <div id="myhead">
+        <button @click="goodClick">好评</button>
+        <button @click="badClick">差评</button>
+    </div>
+</template>
+
+<template id="mylist-tem">
+    <div id="mylist">
+        <ul>
+            <li v-for="item in pinglun2">{{item}}</li>
+        </ul>
+    </div>
+</template>
+<script type="text/javascript">
+    var emptyvue = new Vue();
+    var app = new Vue({
+        el: "#app",
+        components: {
+
+            myhead: {
+                template: "#myhead-tem",
+                data:function(){
+                    return {
+                        haoping:["好吃","贴心","优雅"]
+                        ,
+                        chaping:["才是用脚擦的吧","财力油藏因"]
+                    }
+                },
+                methods: {
+                    goodClick: function (ev) {
+                        emptyvue.$emit("sendpinglun",this.haoping);
+                    },
+                    badClick: function (ev) {
+                        emptyvue.$emit("sendpinglun",this.chaping);
+                    }
+                }
+            },
+
+            mylist: {
+                template: "#mylist-tem",
+                data:function(){
+                    return{
+                        pinglun2:["无评论"]
+                    }
+                },
+                mounted:function () {
+                    emptyvue.$on("sendpinglun",function (pinglun) {
+                        this.pinglun2=pinglun;
+                    }.bind(this))
+                }
+            },
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <mycom>
+        <mytitle></mytitle>
+    </mycom>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        components: {
+            mycom: {
+                template: "<div>mycomdiv子组件内容<slot></slot></div>"
+            },
+            mytitle:{
+                template: "<h2>这是孙子组件里面的内容</h2>"
+            }
+        }
+    })
+</script>
+</html>

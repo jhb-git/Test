@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no "/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="btn1Click1">好评</button>
+    <button @click="btn1Click2">中评</button>
+    <button @click="btn1Click3">差评</button>
+    <keep-alive>
+        <component :is="comname"></component>
+    </keep-alive>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            comname: "com1"
+        },
+        components: {
+            com1: {
+                template: "<div><h1>好評组件</h1><input type='text'/></div>"
+            },
+            com2: {
+                template: "<div><h1>中評组件</h1><input type='text'/></div>"
+            },
+            com3: {
+                template: "<div><h1>差評组件</h1><input type='text'/></div>"
+            }
+        },
+        methods: {
+            btn1Click1: function (ev) {
+                this.comname = "com1"
+            },
+            btn1Click2: function (ev) {
+                this.comname = "com2"
+            },
+            btn1Click3: function (ev) {
+                this.comname = "com3"
+            }
+        }
+    })
+
+</script>
+</html>
